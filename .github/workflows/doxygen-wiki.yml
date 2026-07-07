@@ -21,6 +21,13 @@ jobs:
           unzip doxybook2.zip -d doxybook2
           sudo mv doxybook2/bin/doxybook2 /usr/local/bin/
 
+      - name: Debug - list repo structure
+        run: |
+          echo "== Repo root =="
+          ls -la
+          echo "== INPUT folder contents (if it exists) =="
+          ls -la src || echo "src folder not found"
+
       - name: Run Doxygen
         run: doxygen Doxyfile
 
