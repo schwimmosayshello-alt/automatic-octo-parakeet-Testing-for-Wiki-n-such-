@@ -25,7 +25,9 @@ jobs:
         run: doxygen Doxyfile
 
       - name: Convert XML to Markdown
-        run: doxybook2 --input xml --output wiki-output
+        run: |
+          mkdir -p wiki-output
+          doxybook2 --input xml --output wiki-output
 
       - name: Checkout wiki repo
         uses: actions/checkout@v4
