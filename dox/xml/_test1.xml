@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_test1" kind="page">
+    <compoundname>Test1</compoundname>
+    <title>Test 1</title>
+    <innerpage refid="_test2">Test 2</innerpage>
+    <briefdescription>
+<para>This is the first page for testing! </para>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="_test1_1section1">
+<title>Section 1</title><para>Hello</para>
+<para><itemizedlist>
+<listitem><para><ref refid="_test2" kindref="compound">Test 2</ref> </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="test.dox"/>
+  </compounddef>
+</doxygen>

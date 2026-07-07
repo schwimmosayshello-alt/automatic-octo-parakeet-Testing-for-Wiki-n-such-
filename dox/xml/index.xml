@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.17.0" xml:lang="en-US">
+  <compound refid="namespacemodel" kind="namespace"><name>model</name>
+  </compound>
+  <compound refid="other__test_8dox" kind="file"><name>other_test.dox</name>
+  </compound>
+  <compound refid="test_8dox" kind="file"><name>test.dox</name>
+  </compound>
+  <compound refid="_test2" kind="page"><name>Test2</name>
+  </compound>
+  <compound refid="_test1" kind="page"><name>Test1</name>
+  </compound>
+</doxygenindex>

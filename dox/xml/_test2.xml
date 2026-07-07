@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_test2" kind="page">
+    <compoundname>Test2</compoundname>
+    <title>Test 2</title>
+    <briefdescription>
+<para>The other test. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="other_test.dox"/>
+  </compounddef>
+</doxygen>
