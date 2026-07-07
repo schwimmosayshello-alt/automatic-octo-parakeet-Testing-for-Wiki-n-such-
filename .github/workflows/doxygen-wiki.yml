@@ -1,0 +1,47 @@
+name: Update Doxygen Wiki
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Doxygen
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+
+      - name: Install doxybook2
+        run: |
+          curl -sL https://github.com/matusnovak/doxybook2/releases/latest/download/doxybook2-linux-amd64-v1.6.1.zip -o doxybook2.zip
+          unzip doxybook2.zip -d doxybook2
+          sudo mv doxybook2/bin/doxybook2 /usr/local/bin/
+
+      - name: Run Doxygen
+        run: doxygen Doxyfile
+
+      - name: Convert XML to Markdown
+        run: doxybook2 --input xml --output wiki-output --config doxybook-config.json
+
+      - name: Checkout wiki repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: wiki
+
+      - name: Copy generated docs into wiki
+        run: |
+          rm -rf wiki/*
+          cp -r wiki-output/* wiki/
+
+      - name: Commit and push wiki changes
+        run: |
+          cd wiki
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --staged --quiet || git commit -m "Auto-update docs from Doxygen ($GITHUB_SHA)"
+          git push
