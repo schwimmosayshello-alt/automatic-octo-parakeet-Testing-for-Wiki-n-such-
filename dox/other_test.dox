@@ -5,6 +5,8 @@ namespace model
 @page Test2 Test 2
 @brief The other test
 
+@section wailOfPain Wail of Pain
+
 AAAAAAAAAAAAAHHHHHHHHHHh
 
 */
