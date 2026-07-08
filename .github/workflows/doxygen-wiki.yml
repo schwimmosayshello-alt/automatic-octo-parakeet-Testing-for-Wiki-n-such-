@@ -21,26 +21,16 @@ jobs:
           unzip doxybook2.zip -d doxybook2
           sudo mv doxybook2/bin/doxybook2 /usr/local/bin/
 
-      - name: Debug - list repo structure
-        run: |
-          echo "== Repo root =="
-          ls -la
-          echo "== INPUT folder contents (if it exists) =="
-          ls -la src || echo "src folder not found"
-
       - name: Run Doxygen
         run: doxygen Doxyfile
-
-      - name: Debug - list generated XML
-        run: |
-          echo "== xml folder contents =="
-          ls -la xml/
 
       - name: Convert XML to Markdown
         run: |
           mkdir -p wiki-output
-          doxybook2 --input xml --output wiki-output
-
+          mkdir -p doxybook-templates
+          touch doxybook-templates/meta.tmpl
+          doxybook2 --input xml --output wiki-output --templates doxybook-templates
+          
       - name: Checkout wiki repo
         uses: actions/checkout@v4
         with:
