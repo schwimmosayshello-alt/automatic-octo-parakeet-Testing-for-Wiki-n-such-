@@ -40,7 +40,7 @@ jobs:
       - name: Copy generated docs into wiki
         run: |
           rm -rf wiki/*
-          cp -r wiki-output/Pages/* wiki/
+          cp -r wiki-output/* wiki/
 
       - name: Commit and push wiki changes
         run: |
