@@ -30,6 +30,13 @@ jobs:
           mkdir -p doxybook-templates
           touch doxybook-templates/meta.tmpl
           doxybook2 --input xml --output wiki-output --templates doxybook-templates
+
+      - name: Debug - list wiki-output structure
+        run: |
+          echo "== wiki-output top level =="
+          ls -la wiki-output/
+          echo "== wiki-output/Pages (if exists) =="
+          ls -la wiki-output/Pages/ || echo "Pages folder not found"
           
       - name: Checkout wiki repo
         uses: actions/checkout@v4
