@@ -1,3 +1,9 @@
+# Procedure for adding auto documentation:
+# 1: Add this file to /.github/workflows/ 
+# 2: Add Doxyfile 
+# 3: Turn on read and write permissions in... 
+#    settings -> actions -> general -> workflow permissions
+
 name: Update Doxygen Wiki
 
 on:
