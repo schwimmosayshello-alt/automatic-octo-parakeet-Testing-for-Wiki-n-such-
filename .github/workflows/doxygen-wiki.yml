@@ -54,10 +54,7 @@ jobs:
         run: |
           rm -rf wiki/*
           cp -r wiki-output/Pages/* wiki/
-          echo "# Welcome" > wiki/Home.md
-          echo "" >> wiki/Home.md
-          echo "- [Test 1](_test1)" >> wiki/Home.md
-          echo "- [Test 2](_test2)" >> wiki/Home.md
+          mv wiki/_home.md wiki/Home.md
 
       - name: Commit and push wiki changes
         run: |
