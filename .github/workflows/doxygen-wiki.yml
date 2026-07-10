@@ -3,6 +3,8 @@
 # 2: Add Doxyfile 
 # 3: Turn on read and write permissions in... 
 #    settings -> actions -> general -> workflow permissions
+# Finally, note that @mainpage will not work; you have to
+#    instead use @page Home [MAINPAGE NAME]
 
 name: Update Doxygen Wiki
 
