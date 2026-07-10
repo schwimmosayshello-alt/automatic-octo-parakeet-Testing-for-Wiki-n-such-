@@ -43,9 +43,7 @@ The following are other topics that may be of interest:
 \verbatim
 python3 generateInputFiles.py
 \endverbatim
-
 	- If you are running generateInputFiles.py for the first time, feel free to go here to learn how to modify it from the file itself: @ref "generateInputFiles.py" "generateInputFiles.py source".
-
 	- Alternatively, if you wish to edit the files after they have been generated, feel free to use the following page: @subpage generateInputFiles_docs 
  
 */
