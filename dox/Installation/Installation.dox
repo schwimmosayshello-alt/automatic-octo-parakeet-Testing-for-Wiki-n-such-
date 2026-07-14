@@ -50,8 +50,8 @@ for fftw type,
 $ sudo port install fftw-3 
 \endverbatim
 
-@image html 1.1a.png test
-@image html 1.1b.png test
+@image html 1.1a.png "test"
+@image html 1.1b.png "test"
 
 Figure 1.1: (a) Boost GitHub Page, (b) boost installation for OpenMP type 
 
