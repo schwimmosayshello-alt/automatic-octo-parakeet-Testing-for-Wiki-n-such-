@@ -38,20 +38,6 @@ jobs:
           mkdir -p doxybook-templates
           touch doxybook-templates/meta.tmpl
           doxybook2 --input xml --output wiki-output --templates doxybook-templates
-
-      - name: Debug - list wiki-output structure
-        run: |
-          echo "== wiki-output top level =="
-          ls -la wiki-output/
-          echo "== wiki-output/Pages (if exists) =="
-          ls -la wiki-output/Pages/ || echo "Pages folder not found"
-
-      - name: Debug - check images folder
-        run: |
-          echo "== wiki-output/images =="
-          ls -la wiki-output/images/ 2>/dev/null || echo "wiki-output/images not found"
-          echo "== wiki/images (after copy) =="
-          ls -la wiki/images/ 2>/dev/null || echo "wiki/images not found"
         
       - name: Checkout wiki repo
         uses: actions/checkout@v4
@@ -63,7 +49,8 @@ jobs:
         run: |
           rm -rf wiki/*
           cp -r wiki-output/Pages/* wiki/
-          cp -r wiki-output/images wiki/images
+          mkdir -p wiki/images
+          cp -r dox/images/* wiki/images/
           mv wiki/_home.md wiki/Home.md
 
       - name: Commit and push wiki changes
