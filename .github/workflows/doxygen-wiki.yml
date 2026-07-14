@@ -46,8 +46,12 @@ jobs:
           echo "== wiki-output/Pages (if exists) =="
           ls -la wiki-output/Pages/ || echo "Pages folder not found"
 
-      - name: Debug - check image markdown syntax
-        run: cat wiki-output/Pages/readme.md
+      - name: Debug - check images folder
+        run: |
+          echo "== wiki-output/images =="
+          ls -la wiki-output/images/ 2>/dev/null || echo "wiki-output/images not found"
+          echo "== wiki/images (after copy) =="
+          ls -la wiki/images/ 2>/dev/null || echo "wiki/images not found"
         
       - name: Checkout wiki repo
         uses: actions/checkout@v4
