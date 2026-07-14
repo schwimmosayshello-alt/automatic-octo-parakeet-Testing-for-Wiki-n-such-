@@ -50,7 +50,7 @@ jobs:
           rm -rf wiki/*
           cp -r wiki-output/Pages/* wiki/
           mkdir -p wiki/Images
-          cp -r dox/images/* wiki/Images/
+          cp -r dox/Images/* wiki/Images/
           mv wiki/_home.md wiki/Home.md
 
       - name: Commit and push wiki changes
