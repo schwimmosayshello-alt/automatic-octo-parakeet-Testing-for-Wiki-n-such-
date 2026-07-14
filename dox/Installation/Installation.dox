@@ -51,6 +51,7 @@ $ sudo port install fftw-3
 \endverbatim
 
 @image html 1.1a.png
+
 @image html 1.1b.png
 
 Figure 1.1: (a) Boost GitHub Page, (b) boost installation for OpenMP type 
