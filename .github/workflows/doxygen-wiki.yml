@@ -29,6 +29,9 @@ jobs:
           unzip doxybook2.zip -d doxybook2
           sudo mv doxybook2/bin/doxybook2 /usr/local/bin/
 
+      - name: Debug - check image markdown syntax
+        run: cat wiki-output/Pages/_test1.md
+
       - name: Run Doxygen
         run: doxygen Doxyfile
 
