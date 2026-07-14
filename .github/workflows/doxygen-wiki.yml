@@ -1,6 +1,6 @@
 # Procedure for adding auto documentation:
 # 1: Add this file to /.github/workflows/ 
-# 2: Add Doxyfile 
+# 2: Add Doxyfile (and check Image_path if you want images)
 # 3: Turn on read and write permissions in... 
 #    settings -> actions -> general -> workflow permissions
 # Finally, note that @mainpage will not work; you have to
