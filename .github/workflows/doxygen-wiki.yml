@@ -45,6 +45,13 @@ jobs:
           repository: ${{ github.repository }}.wiki
           path: wiki
 
+      - name: Debug - find images folder
+        run: |
+          echo "== dox/ contents =="
+          ls -la dox/
+          echo "== searching whole repo for image files =="
+          find . -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" 2>/dev/null | grep -v "/wiki/" | grep -v "/.git/"
+
       - name: Copy generated docs into wiki
         run: |
           rm -rf wiki/*
