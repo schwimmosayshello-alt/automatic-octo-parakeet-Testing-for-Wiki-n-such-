@@ -47,7 +47,7 @@ jobs:
           ls -la wiki-output/Pages/ || echo "Pages folder not found"
 
       - name: Debug - check image markdown syntax
-        run: cat wiki-output/Pages/_test1.md
+        run: cat wiki-output/Pages/readme.md
         
       - name: Checkout wiki repo
         uses: actions/checkout@v4
