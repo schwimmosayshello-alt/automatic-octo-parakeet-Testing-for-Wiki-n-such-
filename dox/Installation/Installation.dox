@@ -50,9 +50,11 @@ for fftw type,
 $ sudo port install fftw-3 
 \endverbatim
 
+
 | 			|	 		|
 | ---		        | ---	 		|
 | @image html 1.1a.png  | @image html 1.1b.png  |
+| (a)			| (b)	 		|
 
 Figure 1.1: (a) Boost GitHub Page, (b) boost installation for OpenMP type 
 
@@ -229,14 +231,18 @@ If you plan to connect remotely to your Linux workstation, you may need to insta
 To download QT go to the website https://www.qt.io/download-dev. From the download page select the Community User, Explore QT Community Edition. Scroll down to the Looking for QT Binaries? section as shown in Fig. 2.1b and select Download the QT Online Installer. From here select Linux and a .run file will be downloaded. Then in the downloads folder of the terminal perform the following commands 
 
 
-**images**
+| 			|	 		|
+| ---		        | ---	 		|
+| @image html 2.1a.png  | @image html 2.1b.png  |
+| (a)			| (b)	 		|
+| @image html 2.1c.png  | @image html 2.1d.png  |
+| (c)			| (d)	 		|
 
 
 Figure 2.1: (a) Finding the open source version of Qt, (b) Finding the Qt Online Installer, (c) Ensuring installation in the proper location and selecting a Custom Installation, (d) Selecting the desired verdsion of DDqt and un-selecting the components not necessary for visualization in MoDELib2. 
 
 \verbatim
 $ chmod +x $FileName$.run 
-
 $ ./$FileName$.run 
 \endverbatim
 
@@ -253,7 +259,6 @@ Step 1: Following the download of QT and VTK, first open the CMakeGUI. This shou
 
 \verbatim
 $ cd ~/VTK-9.3.0/ 
-
 $ mkdir build 
 \endverbatim
 
@@ -263,7 +268,14 @@ With the build folder created in VTK, return to the CMakeGUI, and for the prompt
 Step 2: Once the CMake GUI has finished attempting to build the binaries, use the search bar to make the first necessary changes to the configuration. Please check the ”Grouped” and ”Advanced” options to the right of the search bar to make finding and visualizing the changes needed easier, as shown in Fig. 2.2b. Type ”Qt” into the search bar and select the drop down menu for VTK. In the drop down menu change the *V TK GROUP <span style="text-decoration:underline;">E</span>NABLE Qt *to a value of Yes. This will let CMake know you would like to link the VTK library while creating Qt. Once finished, click configure again, and more errors will occur. 
 
 
-**images**
+| 			|	 		|
+| ---		        | ---	 		|
+| @image html 2.2a.png  | @image html 2.2b.png  |
+| (a)			| (b)	 		|
+| @image html 2.2c.png  | @image html 2.2d.png  |
+| (c)			| (d)	 		|
+| @image html 2.2e.png  | @image html 2.2f.png  |
+| (e)			| (f)	 		|
 
 
 Figure 2.2: Visual aids in linking VTK and QT with the CMake GUI discussed in Sec. 2.1 (a) Step 1: Opening the CMake GUI and passing the VTK Source and Build directories, (b) Step 2: Enabling the linking between VTK and QT in the CMake GUI, (c) Step 3: Pointing CMake to the directory of the Qt installation adn specifying the version of Qt being used, (d) Step 4: Ensuring correct paths to package directories and providing the location for Host Packages, (e) Step 5: Turning off QtQuick and QtSQL Support not necessary for compiling MoDELib2 visualization software, (f) Step 6: Configuration and Generation complete, ready for installing binaries. 
@@ -282,7 +294,6 @@ Step 6: After following Steps 1-5, and having downloading the correct dependenci
 
 \verbatim
 $ make -j6 (or however many cores desired) 
-
 $ sudo make install 
 \endverbatim
 
@@ -306,17 +317,16 @@ Use the following commands to locate the necessary binaries:
 
 \verbatim
 $ which clang++-mp-18 *# => /opt/local/bin/clang++-mp-18 *
-
 $ which llvm-ar-mp-18 *# => /opt/local/bin/llvm-ar-mp-18 *
-
 $ which llvm-ranlib-mp-18 *# => /opt/local/bin/llvm-ranlib-mp-18 *
-
 $ which clang-scan-deps-mp-18 *# => /opt/local/bin/clang-scan-deps-mp-18 *
 \endverbatim
 
 When using the CMake GUI, manually assign each of these variables. A visual example of where these entries must be corrected is shown in Figure 2.3. 
 
-**images**
+| 			|
+| ---		        |
+| @image html 2.3.png   |
 
 
 Figure 2.3: CMake GUI showing unresolved fields caused by missing paths to Clang toolchain components. These must be filled manually when using clang++-mp-18. 
@@ -338,11 +348,14 @@ Step 2: Ensure the following software is installed prior to installation of MoDE
 
 
 Step 3: Using a browser of your choice, go to https://github.com/giacomopo/MoDELib2 to access the link to the git repository to clone the library: 
+
 \verbatim
 $ https://github.com/giacomopo/MoDELib2 
 \endverbatim
+
 It should be noted that multiple branches of the MoDELib2 may be available still. This walk-through will assume the user intends to download the currently active branch, MoDELib2. 
 Step 4: In a directory of your choice (file-system examples provided in brackets will assume home directory), create a new directory to store MoDELib. 
+
 \verbatim
 $ mkdir MoDELib2 
 $ cd MoDElib2 
@@ -352,6 +365,7 @@ $ git clone https://github.com/giacomopo/MoDELib2.git
 @subsection CompilingModelib2Tools Compiling MoDELib2 Tools 
 
 1. Create microstructureGenerator, DDomp and DDqt applications. To create the tools microstructureGen erator, DDomp and DDqt, the cmake commands should be run within a build folder created in the main MoDELib2 directory. First, go to the CMakeLists.txt in the main directory and specify the paths to the installed Eigen library and the Qt folder. This is done as follows 
+
 \verbatim
 $ set(EIGEN3_INCLUDE_DIRS /opt/local/include/eigen3) 
 $ list(APPEND CMAKE_PREFIX_PATH "/Users/matthewmaron/Qt/6.6.2/macos/lib/cmake") 
@@ -359,35 +373,49 @@ $ list(APPEND CMAKE_PREFIX_PATH "/Users/matthewmaron/Qt/6.6.2/macos/lib/cmake")
 
 
 Next, to create the MoDELib2 tools, create a build folder. The ”cmake..” calls installed cmake compiler to reference CMakeLists in the above directory, then writes all make files in build directory. ”Make” then reads the makefiles and compiles the executable. Perform the commands 
+
 \verbatim
 $ mkdir build; cd build 
 $ cmake .. 
 $ make -j$Number of processors$ 
 \endverbatim
+
 After compilation, the executablea called “DDomp”, “microstructureGenerator”, and “DDqt” will be created in the MoDELib2/build/tools/ directory in individual folders. 
 MoDELib2 also now generates a python library along with the main tools. In this way MoDELib2 can be controlled purely from python, without the need to create executables. MoDELib2 also has functionality to embed python code into the main code, for using custom mobility functions or machine learning models. These features can be turned on and turned off within the CMakeLists.txt file in the main MoDELib2 directory. Open the file and go to the lines 
+
 \verbatim
 $ option(USE_PYBIND11 "enables␣pybind11" ON) 
 $ option(BUILD_TOOLS "builds␣tools" ON) 
 \endverbatim
+
 If USE P_YBIND11 is turned off pybind11 will not be used to embed python into the MoDELib2 executables, and the standard tools microstructureGenerator, DDomp and DDqt are built. If both USE PY_BIND11 and BUILD TOOLS are turned off then only the python library of MoDELib2 will be built. 
 
 @section runningMoDELib2 Running MoDELib2 
 One chapter with pybind11, one section without pybind11, same tutorials but run with each version Once compiled, go to the location of the folder MoDELib2 which you wish to run simulations and take note of the path to the folder of the desired tutorial. An example of this is by performing the following terminal commands. 
+
 \verbatim
 $ cd MoDELib2/tutorials/$FolderName$/ 
 $ pwd 
 \endverbatim
+
 After taking note of the path, we can start to run our first MoDELib2 tutorial in the desired directory. 
+
 @subsection inputFiles Input Files 
+
 Within the simulation folder you have opened you will see a python script called generateInputFiles.py. This script will create all the necessary input files needed to run a simulation in MoDELib2. The script will make local copies of the files included in the Library directory (/MoDELib2/Library/) and copy them into the simulation folder (/MoDELib2/tutorials/$F olderName$/). This script can be run with by invoking python with the following command while inside a tutorial folder (invoking python may change depending upon python set up): 
+
 \verbatim
 # python3 generateInputFiles.py 
 \endverbatim
+
 This will create an “inputFiles” folder as well as an “evl” and “F” folder. The inputFiles folder will contain all inputs to the simulation, such as material, initial microstructure, and simulation parameters meanwhile the evl and F folders will contain the output data. For example, the F folder will contain data related to plastic strain, strain rates, glissile dislocation density, etc, for all time steps. The evl folders will contain specific information from each time step with nodal information such as node ID, velocities, positions and loop information such as burgers vector, area, etc. Within the “inputFiles” folder now, “Polycrystal.txt” was created is to select things such as domain size, crystal rotation, and mesh size. “DD.txt” is where one can control simulation parameters such as time step integration method, desired physics to include, as well as what data gets output to evl and F files. “ElasticDeformation.txt” is where the user can specify external displacement or loads to the simulation domain. The material files are where irradiation defect properties are stored as well as energetic information for dislocation motion. Once the simulation has been properly set up to the desired microstructure, dynamics parameters, and material parameters, simulations can now be run by creating the microstructure, running the dynamics, and finally visualizing the results with MicrostructureGenerator, DDomp, and DDqt, respectively. We direct you to choose one of the tutorials included in Chapter 5 to run a simulation. A more general use of the tools is outlined in the remainder of the section. If it is your first time running the newest version of MoDELib2 it is recommended to follow a tutorial. A general use of the tools is outlined below. 
+
 @subsection microstructureGenerator MicrostructureGenerator 
+
 The steps to modify a crystal structure and run MicrostructureGenerator are provided in the following list: 
+
 Step 1: Specify the dislocation configuration you wish to inject into the crystalline microstructure. All available dislocation configurations posted in Microstructure directory in the Library. Any modifications to the dislocation configurations should be conducted to the generateInputFiles.py script or within the InputFiles folder once they have been created, and not the Library. 
+
 Step 2: Once the input files have been created, copy the path of the desired tutorial or folder and travel to the build directory of MicrostructureGenerator. For example, the MicrostructureGenerator can be run using the following syntax: 
 
 \verbatim
@@ -396,31 +424,44 @@ Step 2: Once the input files have been created, copy the path of the desired tut
 \endverbatim
 
 Step 3: Under the evl directory in the tutorial folder, the .txt file evl 0 will be written using the configuration specified in the input files. This concludes the function of MicrostructureGenerator 
+
 @subsection DDomp DDomp 
 The steps to calculate the dislocation trajectory throughout the simulation are provided in this list. To run dynamics, use executable DDomp. 
 
 Step 1: Specify the desired loading condition within ElasticDeformation.txt. Here, you can specify whether a stress σ, stress rate ˙σ, strain ε, or strain rate ˙ε. The MachineStiffnessRatio at the bottom determines whether or not your applied loading is controlled primarily by applied stress or strain. Specify dislocation quadrature point density, time-step information, etc within the DD.txt input file. 
+
 Step 2: Once the input files have been created, copy the path of the desired tutorial or folder and travel to the build directory of DDomp. For example, DDomp can be run using the following syntax: 
+
 \verbatim
 # cd Modelib2/build/tools/DDomp/ 
 # ./DDomp MoDELib2/tutorials/$FolderName$
 \endverbatim 
+
 DDomp will begin computing the dislocation trajectory within the microstructure. MoDELib2 performance scales with the number of sample points as well as the box size and number of periodic images in each axial direction. To speed up simulations, investigate the use of subcycling bins for approximating results. Within the evl directory sequential files (i.e. evl 1.txt) will automatically generate with details about the dislocation trajectory at discrete timesteps as specified in DD.txt. DDomp will populate local stress information, as well as kinetic and energetic information about the dislocation quadrature points. 
+
 @subsection DDqt DDqt 
+
 DDqt is the visualization tool used internally within MoDELib. MoDELib takes advantage of the open source VTK and QT libraries in order to provide seamless interpretation of simulation data. The process for utilizing DDqt is slightly different than the other executable functions, and is outlined below: 
 
 Step 1: Travel to the DDqt build directory. Call the executable with ./DDqt as follows (The folder path is not needed here as was needed for MicrostructureGenerator and DDomp): 
+
 \verbatim
 # cd Modelib2/build/tools/DDqt/ 
 # ./DDqt 
 \endverbatim
+
 Step 2: A new window will appear. In the new window, click on the file tab, and direct the filepath to the tutorial folder containing the data you wish to visualize. Note that the evl directory must contain evl 0.txt in order to see a dislocation configuration. 
+
 There are a number of tabs available for you to augment the visualization of the dislocation configuration. Current capabilities include visualization of Peach-Koehler forces, stacking fault forces, among other tools. To visualize sequential timesteps, utilize the arrows provided beside the step number over the tools seen on the left-hand side of the DDqt window. The number in the center indicates the timestep of the currently visualized file, while the number beside the double arrow indicates how many timesteps to jump forward/backward. 
 
 @section simulationTutorials Simulation Tutorials 
+
 @subsection periodicSimulations Periodic Simulations 
+
 ### Dislocation Dipoles 
+
 A dislocation dipole consists of two dislocations with opposite Burgers vectors, typically separated by a small distance in a glide plane. These dipoles form naturally in materials due to thermal fluctuations, applied stress, or interactions with obstacles. Dipole simulations provide controlled test cases for validating DDD models against theoretical predictions and experimental observations. As a first tutorial with MoDELib2, we will perform a simulation of dislocation dipoles in Tungsten. We will first look at the generateInputFiles.py script to understand the simulation inputs. The first section of the python script will copy the DD.txt from /MoDELib2/Library/ into the inputFiles folder. The first few lines of the python script contained in the Tungsten Dipoles tutorial folder look as such: 
+
 \verbatim
 # setInputVariable('inputFiles/'+DDfile,'useFEM','0') 
 # setInputVariable('inputFiles/'+DDfile,'useDislocations','1') 
@@ -428,7 +469,9 @@ A dislocation dipole consists of two dislocations with opposite Burgers vectors,
 # setInputVariable('inputFiles/'+DDfile,'useElasticDeformation','1') 
 # setInputVariable('inputFiles/'+DDfile,'useClusterDynamics','0') 
 \endverbatim
+
 Where we are instructing MoDELib2 to use dislocations as well as elastic deformation without the FEM or cluster dynamics modules. After specifing the type of simulations desireed the next lines of the python script look as such: 
+
 \verbatim
 # setInputVariable('inputFiles/'+DDfile,'Nsteps','1000') # number of simulation steps 
 # setInputVector('inputFiles/' +DDfile,'periodicImageSize',np.array([8,8,8]),'') 
@@ -439,7 +482,9 @@ Where we are instructing MoDELib2 to use dislocations as well as elastic deforma
 # setInputVariable('inputFiles/'+DDfile,'use_velocityFilter','0') # don't filter velocity 
 # setInputVariable('inputFiles/'+DDfile,'useSubCycling','0') 
 \endverbatim
+
 Where we first can control the number of simulation steps with Nsteps, currently set to 1000. For periodic simulations we can input the number of images in each direction, as well as the Ewald length factor currently set to 8 images in each direction, with an ewald length factor of 4. The Ewald length factor controls the effective range of interactions by determining how quickly the real-space stress field decays. If you have 8 periodic images, and you set an Ewald length factor of 4, then the stress field will effectively converge at a cutoff distance of 4 times the characteristic system size. This means that only dislocations within that range (i.e., a fraction of the total periodic images) will significantly contribute to the stress field. We next have options to control the time stepping in MoDELib2, with an option of “fixed” or “adaptive”. The fixed time step is controlled by the input “dtMax” which is in code units. To find the time step in seconds please multiple the input number by b/cs, where b is the burgers vector and cs is the shear wave speed of the material. For example for tungsten b/cs = 9.412187058138576e-14, and with a dtMax of 2, the time step of each simulation step will be ≈ 0.19 ps. The adaptive time step is controlled by the input “dxMax”, which signifies the maximum nodal displacement in burgers vectors, therefore for a dxMax of 1 the maximum nodal displacement is 1 burgers vector, which is 0.2722 nanometers for Tungsten. It should be noted that MoDELib2 will always take the smallest time step between the two, so if an adaptive time step is desired, it is recommended to place a large dtMax, to ensure the adaptive timestep is used. Next there are two other control parameters “use velocityFilter” and “useSubCycling”. The velocity filter will ensure all dislocation node velocities remain within 75% of the shear wave speed of the material. SubCycling can be used to bin velocities and reduce computational costs, recommended for larger scale simulations. The final section of input parameters for DD.txt look as such: 
+
 \verbatim
 # setInputVariable('inputFiles/'+DDfile,'glideSolverType','Galerkin') # type of glide solver 
 # setInputVariable('inputFiles/'+DDfile,'climbSolverType','none') # type of clim solver 
@@ -451,33 +496,43 @@ Where we first can control the number of simulation steps with Nsteps, currently
 # setInputVariable('inputFiles/'+DDfile,'outputFrequency','10') 
 # setInputVariable('inputFiles/'+DDfile,'outputQuadraturePoints','1') # output quadrature data 
 \endverbatim
+
 Where the glideSolverType and climbSolverType define the numerical methods used to solve for dislocation glide and climb motion. glideSolverType= “Galerkin” specifies that the Galerkin method will be used to solve for the glide motion of dislocations. climbSolverType=“none” indicates that no explicit climb mechanism is considered in this simulation. The climb solvers can be included if diffusion-driven dislocation motion is of interest, as outlined in the next tutorial. The “quadPerLength” parameter controls the quadrature resolution for segment interactions. A value of 0.1 means that quadrature points are spaced at 0.1 times the characteristic segment length. The length is expressed in Burgers vectors (b), meaning a value of 0.1 implies one quadrature point every 10 Burgers vectors. This affects the accuracy of force calculations along curved dislocation segments. The “alphaLineTension” is a dimensionless scale factor for line tension effects. A value of 1 means that default material-dependent line tension values are used, which influences the force balance and stability of dislocation segments. “remeshFrequency” controls how often the dislocation network is remeshed (i.e., how frequently segment sizes are adjusted for numerical stability and accuracy). A value of 0 means no re-meshing, so segment lengths remain fixed. If re-meshing is enabled, “Lmin” and “Lmax” define the minimum and maximum segment lengths (in units of Burgers vectors) for discretizing the dislocation network. Lmin = 10 means that dislocation segments will not be refined below 10 Burgers vectors in length. Lmax = 15 ensures that segments do not exceed 15 Burgers vectors, preventing overly coarse discretization. The “outputFrequency” defines how often the simulation outputs data. A value of 10 means that simulation outputs are written every 10 time steps in the evl folders. This balances storage efficiency and post-processing resolution. Finally “outputQuadraturePoints” ensures that quadrature data is included in the output files, which can be useful for post-processing stress fields, forces, and other detailed calculations. This information is stored in the “ddAux” files contained within the evl folder. 
 The material properties required for the simulation are stored in a file named W.txt. This file is initially copied from the Library/Materials directory into the simulation’s inputFiles folder. If necessary, modifica tions can be made to this local copy. The python script contains the following lines: 
+
 \verbatim
 # materialFile = 'W.txt'; 
 # setInputVariable('inputFiles/' + materialFile, 'dislocationMobilityType', 'default') 
 # setInputVariable('inputFiles/' + materialFile, 'enabledSlipSystems', 'full<111>{110}') 
 \endverbatim
+
 In this section of the script the **material file** is copied from the library and stored in the inputFiles directory. The **dislocation mobility type** is set to default, which determines how dislocations move in response to stress. The **enabled slip systems** are set to full<111>{110}, meaning that all {110} planes are active with ⟨111⟩ Burgers vectors, which are typical for BCC materials like Tungsten. 
 Next the elastic deformation settings are stored in the file ElasticDeformation.txt. Similar to the material file, this file is copied from the Library/ElasticDeformation directory into the inputFiles folder. The python script contains the following lines: 
+
 \verbatim
 # elasticDeformationFile = 'ElasticDeformation.txt'; 
 # setInputVector('inputFiles/' + elasticDeformationFile, 'ExternalStress0', np.array([0.0, 
   0.0, 0.0, 0.0, 0.01, 0.0]), 'applied_stress') 
 \endverbatim
+
 The ElasticDeformation.txt file allows for the specification of external stress and strain conditions. The available options include: 
 
 • External Stress: Specifies the applied stress tensor in **Voigt notation (11, 22, 33, 12, 23, 13)**. 
+
 \verbatim
 # ExternalStress0 = 0.0 0.0 0.0 0.0 0.01 0.0; # Initial applied stress 
 # ExternalStressRate = 0.0 0.0 0.0 0.0 0.0 0.0; # Rate of change of stress 
 \endverbatim
+
 • External Strain: Specifies strain control conditions. 
+
 \verbatim
 # ExternalStrain0 = 0.0 0.0 0.0 0.0 0.0 0.0; # Initial strain state 
 # ExternalStrainRate = 0.0 0.0 0.0 0.0 0.0 0.0; # Rate of change of strain 
 \endverbatim
+
 • Stiffness Ratio: Controls the boundary conditions between pure stress and pure strain control. 
+
 \verbatim
 # stiffnessRatio = 0.0 0.0 0.0 0.0 0.0 0.0; 
 \endverbatim
@@ -485,26 +540,40 @@ The ElasticDeformation.txt file allows for the specification of external stress 
 - stiffnessRatio = 0 enforces **pure stress control**. - stiffnessRatio = 1e20 (or a very large value) enforces **pure strain control**. 
 
 @section additionFeature Additional Features 
+
 @subsection MeshGen Mesh Generation 
+
 Generating meshes for use with MoDELib2 can be done with neper (https://www.neper.info/) and gsmh (https://www.neper.info/). Once neper and gmsh are installed a tessellation file can be created by running the following commands: 
+
 \verbatim
 # export OMP_NUM_THREADS=6 
 # neper -T -n 50 -domain "cube(1,1,1)" -morpho graingrowth -morphooptistop "itermax=3000" -o 
   Polycrystal.tess 
 \endverbatim
+
 which will create a finite unit polycrystal with 50 grains. Creating tesselations allows for parallelization. For periodic simulations one can add the command “-periodicity ” 
+
 \verbatim
 # neper -T -n 50 -domain "cube(1,1,1)" -morpho graingrowth -morphooptistop "itermax=3000" 
   -periodicity x,y -o Polycrystal.tess 
 \endverbatim
+
 Next to mesh the tesselation, there are a number of options. For example to directly create the mesh file, one can invoke gmsh, to create a .msh file: 
+
 \verbatim
 # export OMP_NUM_THREADS=1 
 # neper -M -gmsh /Applications/Gmsh.app/Contents/MacOS/gmsh Polycrystal.tess 
 \endverbatim
-which will create the .msh file directly compatible with MoDELib2 simulations. Meshing must be on a single thread. An example of a non-periodic, and periodic meshes visualized with DDqt are shown in Fig. 6.1. Currently MoDELib2 is being developed for use with fully periodic/mixed periodic meshes 
 
-**image**
+which will create the .msh file directly compatible with MoDELib2 simulations. Meshing must be on a single thread. An example of a non-periodic, and periodic meshes visualized with DDqt are shown in Fig. 6.1. 
+
+Currently MoDELib2 is being developed for use with fully periodic/mixed periodic meshes 
+
+| 			|	 		|	 		|	 		|
+| ---		        | ---	 		| ---	 		| ---	 		|
+| @image html 6.1a.png  | @image html 6.1b.png  | @image html 6.1c.png  | @image html 6.1d.png  |
+| (a)			| (b)	 		| (c)	 		| (d)	 		|
+
 Figure 6.1: (a) Non-periodic mesh. (b) Periodic in one direction. (c) Periodic in two directions. (d) Periodic in three directions. 
 
 @section understandingTheCode Understanding the Code 
@@ -527,39 +596,59 @@ Step 3: Run command ”git pull” to update the repository with newer file vers
 Step 4: Recompile all executable functions. 
 
 @section Appendix Appendix
+
 @subsection TextEditors Text Editors 
+
 ### XCode and TextEdit 
+
 It is recommended to use XCode when editing or reading header files or source files from MoDELib2, but it can also be helpful to read files such as input files and material files with the built in TextEdit application on MacOS. To change the default application for opening specific files, such as ”.txt” files, first cntl+click or left click a file, ”test.txt” for example. Click Get Info, and go to the drop down menu Open With. In this menu the software for opening .txt files can be chosen as TextEdit; make sure to specify for all files of type ”.txt”. It is then recommended to follow the same procedure for ”.h” and ”.cpp” files, to be opened with Xcode. If you prefer to use terminal text editors, a brief tutorial on Vim is shown in the next section. 
+
 ### Vim 
+
 In this quickstart guide, we utilize a terminal text editor called ’Vim.’ It is a highly extensible and programmable text editor used by many people. Vim can be installed with MacPorts using the following line in the terminal 
+
 \verbatim
 $ sudo port install vim 
 \endverbatim
+
 We highly recommend that you learn the basic commands of using Vim before proceeding to the next section of this guide. To use Vim first open the Vim text editor, 
+
 \verbatim
 $ vim 
 \endverbatim
+
 Then to open a file of the type ”test.txt” in the current directory with Vim, 
+
 \verbatim
 $ vim test.txt 
 \endverbatim
+
 Inside of Vim, press the following key to enter ”edit” mode, 
+
 \verbatim
 $ i 
 \endverbatim
+
 and the file test.txt can now be edited. Inside of Vim, press the following key to go back to ”normal” mode from ”edit” mode after changes to the file have been made, 
+
 \verbatim
 $ ESC
 \endverbatim 
+
 Inside of Vim, press the following key to activate command prompt (must be in normal mode), 
+
 \verbatim
 $ : 
 \endverbatim
+
 Type in the following command to exit Vim and save the changes made to the document, 
+
 \verbatim
 $ :wq 
 \endverbatim
+
 @subsection WebAddresses Web Addresses for Software 
+
 1. MacPorts: 
 https://www.macports.org/install.php 
 2. Boost: 
