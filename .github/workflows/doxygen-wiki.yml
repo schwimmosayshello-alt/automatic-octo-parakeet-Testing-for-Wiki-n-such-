@@ -60,13 +60,14 @@ jobs:
           cp -r dox/Images/* wiki/images/
           mv wiki/_home.md wiki/Home.md
 
-          #if [ -d "wiki-output/classes" ]; then
+          #if [ -d "wiki-output/Classes" ]; then
           #  { echo "# Classes"; echo; cat wiki-output/Classes/*.md; } > wiki/Classes.md
           #fi
-          if [ -d "wiki-output/files" ]; then
+
+          if [ -d "wiki-output/Files" ]; then
             { echo "# Files"; echo; cat wiki-output/Files/*.md; } > wiki/Files.md
           fi
-
+          
       - name: Commit and push wiki changes
         run: |
           cd wiki
