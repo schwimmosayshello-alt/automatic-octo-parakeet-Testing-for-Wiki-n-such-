@@ -39,6 +39,9 @@ jobs:
           touch doxybook-templates/meta.tmpl
           doxybook2 --input xml --output wiki-output --templates doxybook-templates
 
+      - name: Debug - list wiki-output structure
+        run: ls -la wiki-output/
+
       - name: Checkout wiki repo
         uses: actions/checkout@v4
         with:
