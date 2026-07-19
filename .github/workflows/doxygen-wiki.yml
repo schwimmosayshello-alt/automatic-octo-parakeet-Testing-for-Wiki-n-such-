@@ -54,22 +54,64 @@ jobs:
 
       - name: Copy generated docs into wiki
         run: |
-          # .dox pages
           rm -rf wiki/*
+
+          # Copy hand-written @page pages directly (flat, one per sidebar entry)
           cp -r wiki-output/Pages/* wiki/
+
           mkdir -p wiki/images
-          cp -r dox/Images/* wiki/images/
-          mv wiki/_home.md wiki/Home.md
+          cp -r dox/Images/* wiki/images/ 2>/dev/null || echo "No images to copy"
 
-          # Classes
-          #if [ -d "wiki-output/Classes" ]; then
-          #  { echo "# Classes"; echo; cat wiki-output/Classes/*.md; } > wiki/Classes.md
-          #fi
-
-          # Files
-          if [ -d "wiki-output/Files" ] && compgen -G "wiki-output/Files/*.md" > /dev/null; then
-            { echo "# Files"; echo; cat $(ls wiki-output/Files/*.md | grep -v '_8dox'); } > wiki/Files.md
+          # --- Classes: individual pages + hub page ---
+          if [ -d "wiki-output/Classes" ] && compgen -G "wiki-output/Classes/*.md" > /dev/null; then
+            { echo "# Classes"; echo; } > wiki/Classes.md
+            for f in wiki-output/Classes/*.md; do
+              filename=$(basename "$f")
+              cp "$f" "wiki/$filename"
+              title=$(grep -m 1 '^# ' "$f" | sed 's/^# //')
+              [ -z "$title" ] && title="${filename%.md}"
+              echo "- [$title](${filename%.md})" >> wiki/Classes.md
+            done
           fi
+
+          # --- Files: individual pages + hub page (skip dir_ overviews and empty stubs) ---
+          if [ -d "wiki-output/Files" ] && compgen -G "wiki-output/Files/*.md" > /dev/null; then
+            { echo "# Files"; echo; } > wiki/Files.md
+            for f in wiki-output/Files/*.md; do
+              filename=$(basename "$f")
+              [[ "$filename" == dir_* ]] && continue
+              lines=$(grep -v '^#' "$f" | grep -v '^\s*$' | wc -l)
+              [ "$lines" -lt 2 ] && continue
+              cp "$f" "wiki/$filename"
+              title=$(grep -m 1 '^# ' "$f" | sed 's/^# //')
+              [ -z "$title" ] && title="${filename%.md}"
+              echo "- [$title](${filename%.md})" >> wiki/Files.md
+            done
+          fi
+
+          # --- Home page ---
+          if [ -f "wiki/_home.md" ]; then
+            mv wiki/_home.md wiki/Home.md
+          else
+            echo "# Welcome to the Wiki" > wiki/Home.md
+            echo "" >> wiki/Home.md
+            echo "- [Classes](Classes)" >> wiki/Home.md
+            echo "- [Files](Files)" >> wiki/Home.md
+          fi
+
+          # --- Sidebar: every .dox Page individually, Classes/Files collapsed ---
+          {
+            echo "- [Home](Home)"
+            for f in wiki-output/Pages/*.md; do
+              filename=$(basename "$f" .md)
+              [ "$filename" == "_home" ] && continue
+              title=$(grep -m 1 '^# ' "$f" | sed 's/^# //')
+              [ -z "$title" ] && title="$filename"
+              echo "- [$title]($filename)"
+            done
+            echo "- [Classes](Classes)"
+            echo "- [Files](Files)"
+          } > wiki/_Sidebar.md
           
       - name: Commit and push wiki changes
         run: |
