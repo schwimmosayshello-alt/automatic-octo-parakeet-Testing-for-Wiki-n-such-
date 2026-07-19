@@ -54,18 +54,21 @@ jobs:
 
       - name: Copy generated docs into wiki
         run: |
+          # .dox pages
           rm -rf wiki/*
           cp -r wiki-output/Pages/* wiki/
           mkdir -p wiki/images
           cp -r dox/Images/* wiki/images/
           mv wiki/_home.md wiki/Home.md
 
+          # Classes
           #if [ -d "wiki-output/Classes" ]; then
           #  { echo "# Classes"; echo; cat wiki-output/Classes/*.md; } > wiki/Classes.md
           #fi
 
-          if [ -d "wiki-output/Files" ]; then
-            { echo "# Files"; echo; cat wiki-output/Files/*.md; } > wiki/Files.md
+          # Files
+          if [ -d "wiki-output/Files" ] && compgen -G "wiki-output/Files/*.md" > /dev/null; then
+            { echo "# Files"; echo; cat $(ls wiki-output/Files/*.md | grep -v '_8dox'); } > wiki/Files.md
           fi
           
       - name: Commit and push wiki changes
